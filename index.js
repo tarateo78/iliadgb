@@ -21,10 +21,10 @@ bot.onText(/\/dati/, (msg, match) => {
 
 	bot.sendMessage(chatId, "Eccolo... il mio " + chatId, {
 		"reply_markup": {
-			"keyboard": [["Sample text", "Second sample"],   ["Keyboard"], ["I'm robot"]]
+			"keyboard": [["Genitore 1", "Genitore 2"],   ["io sono Giorgia"]]
 			}
 		});
-		
+
 	// const city = match[1] ? match[1] : "";
 	// //http.get( 'api.openweathermap.org/data/2.5/weather?q=firenze&units=metric&lang=it&APPID=be3f936c7f2a6749b03fd01730f4262c, res => {
 	// http.get( 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&lang=it&APPID=' + meteoAppId, res => {
