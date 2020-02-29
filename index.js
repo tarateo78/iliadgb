@@ -4,15 +4,23 @@ const http = require('http');
 const token = process.env.token;
 
 
-const bot = new TelegramBot( token, { polling : true } );
+const bot = new TelegramBot(token, { polling: true });
 
 bot.on("polling_error", (msg) => console.log(msg));
 
-bot.onText( /\/dati/, (msg, match) => {
+
+bot.onText(/\/start/, (msg) => {
+
+	bot.sendMessage(msg.chat.id, "Benvenuto in questo inutile bot.\n/dati per vedere i dati");
+
+});
+
+
+bot.onText(/\/dati/, (msg, match) => {
 	const chatId = msg.chat.id;
-	
-	bot.sendMessage( chatId, "Eccolo... il mio " + chatId );
-	
+
+	bot.sendMessage(chatId, "Eccolo... il mio " + chatId);
+
 	// const city = match[1] ? match[1] : "";
 	// //http.get( 'api.openweathermap.org/data/2.5/weather?q=firenze&units=metric&lang=it&APPID=be3f936c7f2a6749b03fd01730f4262c, res => {
 	// http.get( 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&lang=it&APPID=' + meteoAppId, res => {
