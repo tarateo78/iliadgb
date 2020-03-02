@@ -18,7 +18,7 @@ bot.onText(/\/start/, (msg) => {
 	});
 });
 
-bot.onText(/\/Consumo/, (msg, match) => {
+bot.onText(/Consumo/, (msg, match) => {
 	const chatId = msg.chat.id;
 
 	bot.sendMessage(chatId, "Ecco i dati: ...", {
