@@ -13,17 +13,17 @@ bot.onText(/\/start/, (msg) => {
 
 	bot.sendMessage(msg.chat.id, "Benvenuto in questo inutile bot.\n/dati per vedere i dati", {
 		"reply_markup":{
-			"keyboard":[["Consumo Dati"],["User", "Password"]]
+			"keyboard":[["Consumo"],["User", "Password"]]
 		}
 	});
 });
 
-bot.onText(/\/Consumo Dati/, (msg, match) => {
+bot.onText(/\/Consumo/, (msg, match) => {
 	const chatId = msg.chat.id;
 
 	bot.sendMessage(chatId, "Ecco i dati: ...", {
 		"reply_markup": {
-			"keyboard":[["Consumo Dati"],["User", "Password"]]
+			"keyboard":[["Consumo"],["User", "Password"]]
 		}
 	});
 });
@@ -33,7 +33,7 @@ bot.onText(/\/dati/, (msg, match) => {
 
 	bot.sendMessage(chatId, "Eccolo... il mio " + chatId, {
 		"reply_markup": {
-			"keyboard": [["Genitore 1", "Genitore 2"],   ["io sono Giorgia"]]
+			"keyboard":[["Consumo"],["User", "Password"]]
 		}
 	});
 
