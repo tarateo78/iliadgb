@@ -11,10 +11,22 @@ bot.on("polling_error", (msg) => console.log(msg));
 
 bot.onText(/\/start/, (msg) => {
 
-	bot.sendMessage(msg.chat.id, "Benvenuto in questo inutile bot.\n/dati per vedere i dati");
-
+	bot.sendMessage(msg.chat.id, "Benvenuto in questo inutile bot.\n/dati per vedere i dati", {
+		"reply_markup":{
+			"keyboard":[["Consumo Dati"],["User", "Password"]]
+		}
+	});
 });
 
+bot.onText(/\/Consumo Dati/, (msg, match) => {
+	const chatId = msg.chat.id;
+
+	bot.sendMessage(chatId, "Ecco i dati: ...", {
+		"reply_markup": {
+			"keyboard":[["Consumo Dati"],["User", "Password"]]
+		}
+	});
+});
 
 bot.onText(/\/dati/, (msg, match) => {
 	const chatId = msg.chat.id;
@@ -22,11 +34,11 @@ bot.onText(/\/dati/, (msg, match) => {
 	bot.sendMessage(chatId, "Eccolo... il mio " + chatId, {
 		"reply_markup": {
 			"keyboard": [["Genitore 1", "Genitore 2"],   ["io sono Giorgia"]]
-			}
-		});
+		}
+	});
 
 	// const city = match[1] ? match[1] : "";
-	// //http.get( 'api.openweathermap.org/data/2.5/weather?q=firenze&units=metric&lang=it&APPID=be3f936c7f2a6749b03fd01730f4262c, res => {
+	// //http.get( 'api.openweathermap.org/data/2.5/weather?q=firenze&units=metric&lang=it&APPID=<TOKEN>, res => {
 	// http.get( 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&lang=it&APPID=' + meteoAppId, res => {
 	// 	let rawDat = '';
 	// 	res.on( 'data', (chunk) => { rawDat += chunk; });
