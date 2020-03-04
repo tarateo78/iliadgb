@@ -41,9 +41,9 @@ exports.getIliad = function(areariservata, callback)
 	request.post(arealogout, () => {
 
 		request.post(areariservata, (error, response, body) => {
-			console.log(areariservata);
-			console.log( body.substr(0,150) );
-			console.log( response.headers);
+			// console.log(areariservata);
+			// console.log( body.substr(0,150) );
+			// console.log( response.headers);
 			let $ = null;
 			$ = cheerio.load(body);
 
