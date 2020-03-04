@@ -4,7 +4,6 @@
 
 const Telegram = require('telegram-node-bot');
 
-//process.env.token
 
 const tg = new Telegram.Telegram('process.env.token', {
 	workers: 1
