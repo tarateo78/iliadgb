@@ -1,5 +1,5 @@
 let cheerio = require('cheerio');
-let request = require( 'request' );
+let request = require('request' );
 
 
 let arealogout = {
