@@ -6,31 +6,35 @@ const Telegram = require('telegram-node-bot');
 
 const getIliad = require('../connect');
 const connection = require('../connection');
+const Testa = require('../testala');
+const Credenziali = require('../credenziali');
 
 class TodoController extends Telegram.TelegramBaseController {
+	
 	testHandler($) {
+		console.log("test");
+		$.getUserSession('myTest').then( data => {
+			
+			let t = new Testa();
+			t.testa(data, $);
+			
+			
+		})
+		
+	}
+	
+	cessHandler($) {
+		
+		console.log("cess");
+		$.getUserSession('myUser').then( data => {
+			
+			let credenziali = new Credenziali();
+			credenziali.utente(data, $);
+			
 
-		// let url = 'https://www.google.it';
-		// let areariservata = {
-		// 	uri: url,
-		// 	method: "POST",
-		// 	followAllRedirects: true,
-		// 	jar: true,
-		// 	form: {
-		// 		"login-ident": 'usr',
-		// 		"login-pwd": 'pwd'
-		// 	}
-		// };
-
-		// //connection.getIliad(usr,pwd, (html) => {
-		// connection.getIliad(areariservata, (html) => {
-		// 	html = JSON.parse(html);
-		// });
-
+		})
 
 	}
-
-
 
 	/* START */
 	startHandler($) {
@@ -133,20 +137,8 @@ class TodoController extends Telegram.TelegramBaseController {
 				if (typeof usr === 'string') {
 					if (typeof pwd === 'string') {
 
-						let url = 'https://www.iliad.it/account/?' + Date.now();
-						let areariservata = {
-							uri: url,
-							method: "POST",
-							followAllRedirects: true,
-							jar: true,
-							form: {
-								"login-ident": usr,
-								"login-pwd": pwd
-							}
-						};
+						connection.getIliad(usr,pwd, (html) => {
 
-						//connection.getIliad(usr,pwd, (html) => {
-						connection.getIliad(areariservata, (html) => {
 							html = JSON.parse(html);
 
 							//🔲◽️ 🔳▪️
@@ -170,7 +162,7 @@ ${graficoGiorni}
 						});
 
 					} else {
-						$.sendMessage("⚠️ Nessuna Pass impostata\nImpostare la Pass /pass");
+						$.sendMessage("⚠️ Nessuna Pass impostata\n\nImpostare la Pass /pass");
 						return;
 					}
 
@@ -182,23 +174,13 @@ ${graficoGiorni}
 		});
 	}
 
-	checkHandler($) {
-		let index = parseInt($.message.text.split(' ').slice(1)[0]);
-		if (isNaN(index)) return $.sendMessage('Sorry, you didn\'t pass a valid index.');
-
-		$.getUserSession('todos')
-			.then(todos => {
-				if (index >= todos.length) return $.sendMessage('Sorry, you didn\'t pass a valid index.');
-				todos.splice(index, 1);
-				$.setUserSession('todos', todos);
-				$.sendMessage('Checked todo!');
-			});
-	}
+	
 
 	get routes() {
 
 		return {
 			'testCommand': 'testHandler',
+			'cessCommand': 'cessHandler',
 			'startCommand': 'startHandler',
 			'userCommand': 'userHandler',
 			'passCommand': 'passHandler',

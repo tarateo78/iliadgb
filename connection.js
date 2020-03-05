@@ -10,27 +10,26 @@ let arealogout = {
 };
 
 
-// const url = 'https://www.iliad.it/account/';
+ const url = 'https://www.iliad.it/account/';
 
 
-// let areariservata = {
-// 	uri: url,
-// 	method: "POST",
-// 	followAllRedirects: true,
-// 	jar: true,
-// 	form: {
-// 		"login-ident": 'user',
-// 		"login-pwd": 'pass'
-// 	}
-// };
+let areariservata = {
+	uri: url,
+	method: "POST",
+	followAllRedirects: true,
+	jar: true,
+	form: {
+		"login-ident": 'user',
+		"login-pwd": 'pass'
+	}
+};
 
-//exports.getIliad = function(user, pass, callback)
-exports.getIliad = function(areariservata, callback)
+exports.getIliad = function(user, pass, callback)
+//exports.getIliad = function(areariservata, callback)
 	{
-		
 
-		// areariservata.form["login-ident"] = user;
-		// areariservata.form["login-pwd"] = pass;
+		areariservata.form["login-ident"] = user;
+		areariservata.form["login-pwd"] = pass;
 
 		let consumo;
 		let credito;

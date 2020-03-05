@@ -6,6 +6,8 @@ dotenv.config();
 
 const tg = new Telegram.Telegram(process.env.token, {
 	workers: 1
+});( () => {
+	console.log("OK");
 });
 
 const TodoController = require('./controllers/todo')
@@ -14,6 +16,7 @@ const TodoController = require('./controllers/todo')
 const todoCtrl = new TodoController();
 
 tg.router.when(new Telegram.TextCommand('/test', 'testCommand'), todoCtrl)
+	.when(new Telegram.TextCommand('/cess', 'cessCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('/start', 'startCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('/user', 'userCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('/pass', 'passCommand'), todoCtrl)
