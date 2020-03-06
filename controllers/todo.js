@@ -1,105 +1,105 @@
 'use strict';
 
 const Telegram = require('telegram-node-bot');
-// let cheerio = require('cheerio');
-// let request = require( 'request' );
-
-const getIliad = require('../connect');
-const connection = require('../connection');
-const Testa = require('../testala');
-const Credenziali = require('../credenziali');
+const connection = require('../lib/connection');
+const Utente = require('../lib/utente');
+const Password = require('../lib/password');
+const Menu = require('../lib/menu');
 
 class TodoController extends Telegram.TelegramBaseController {
 	
-	testHandler($) {
-		console.log("test");
-		$.getUserSession('myTest').then( data => {
-			
-			let t = new Testa();
-			t.testa(data, $);
-			
-			
-		})
+	xuserHandler($) {
+		this.userHandler($);
 		
+	}
+
+	testHandler($) {
+
+		let menu = new Menu();
+		menu.showTest($);
+
 	}
 	
-	cessHandler($) {
-		
-		console.log("cess");
-		$.getUserSession('myUser').then( data => {
-			
-			let credenziali = new Credenziali();
-			credenziali.utente(data, $);
-			
-
-		})
-
-	}
 
 	/* START */
 	startHandler($) {
-		$.sendMessage("Benvenuto su *iliadGb*\n\nI comandi disponibili sono:\n/user - 👦🏼 Imposta e visualizza\n/pass - 🔐 Imposta e visualizza\n/consumo - 📶 Visualizza il consumo dati", {parse_mode: `Markdown`});
+		//$.sendMessage("Benvenuto su *iliadGb*\n\nI comandi disponibili sono:\n/user - 👦🏼 Imposta e visualizza\n/pass - 🔐 Imposta e visualizza\n/consumo - 📶 Visualizza il consumo dati", {parse_mode: `Markdown`});
+		let menu = new Menu();
+		menu.showStart($, (data) => {
+			console.log(data);
+			
+		});
+		
+
 	}
 
 
 	/* USER */
 	userHandler($) {
+		
+		let utente = new Utente();
 
-		let user = $.message.text.split(' ').slice(1)[0];
+		let user = false;
+		if ($.message.text.substring(0,1) == "/") {
+			let user = $.message.text.split(' ').slice(1)[0];
+		}
 		if (!user) {
 
 			$.getUserSession('myUser').then(data => {
 				if (typeof data !== 'string' || data instanceof String) {
-					$.sendMessage('⚠️ Nessun *User* impostato ⚠️\n\nMandami lo User che usi per accedere al portale iliad', { parse_mode: 'Markdown' });
-					$.waitForRequest
-						.then( $ => {
-							$.setUserSession('myUser', $.message.text).then(() => {
-								// return $.getUserSession('myUser')
-								$.sendMessage(`✅ User impostato: *${$.message.text}*`, { parse_mode: 'Markdown' });
-							})
-						});
+
+					utente.impostaUtente($);
+
 				} else {
-					$.sendMessage("👦🏼 User attuale: *" + data + "*", { parse_mode: 'Markdown' });
+
+					utente.getUtente(data, $);
+
 				}
 			})
 
 		} else {
 
 			$.setUserSession('myUser', user).then(() => {
-				$.sendMessage(`✅ User impostato: *${user}*`, { parse_mode: 'Markdown' });
+
+				utente.setUtente(user, $);
+
 			})
 			
 		}
 
-
-
 	}
+
 
 	/* PASS */
 	passHandler($) {
 
-		let pass = $.message.text.split(' ').slice(1)[0];
+		let password = new Password();
+
+		let pass = false;
+		if ($.message.text.substring(0,1) == "/") {
+			let pass = $.message.text.split(' ').slice(1)[0];
+		}
+
 		if (!pass) {
 
 			$.getUserSession('myPass').then(data => {
 				if (typeof data !== 'string' || data instanceof String) {
-					$.sendMessage('⚠️ Nessuna *Pass* impostata ⚠️\n\nMandami la Pass che usi per accedere al portale iliad', { parse_mode: 'Markdown' });
-					$.waitForRequest
-						.then( $ => {
-							$.setUserSession('myPass', $.message.text).then(() => {
-								// return $.getUserSession('myPass')
-								$.sendMessage(`✅ Pass impostata: *${$.message.text}*`, { parse_mode: 'Markdown' });
-							})
-						});
+
+					password.impostaPassword($);
+
 				} else {
-					$.sendMessage("🔐 Pass attuale: *" + data + "*", { parse_mode: 'Markdown' });
+
+					password.getPassword(data, $);
+
 				}
 			})
 
 		} else {
 
 			$.setUserSession('myPass', pass).then(() => {
-				$.sendMessage(`✅ Pass impostata: *${pass}*`, { parse_mode: 'Markdown' });
+
+				password.setPassword(pass, $);
+
 			})
 			
 		}
@@ -107,14 +107,10 @@ class TodoController extends Telegram.TelegramBaseController {
 
 	/* CAMBIAUSER */
 	cambiauserHandler($) {
-		$.sendMessage('Inserisci un nuovo User...', { parse_mode: 'Markdown' });
-		$.waitForRequest
-			.then( $ => {
-				$.setUserSession('myUser', $.message.text).then(() => {
-					// return $.getUserSession('myUser')
-					$.sendMessage(`✅ User impostato: *${$.message.text}*`, { parse_mode: 'Markdown' });
-				})
-			});
+
+		let utente = new Utente();
+		utente.cambiaUtente($);
+
 	}
 
 	/* CAMBIAPASS */
@@ -139,6 +135,11 @@ class TodoController extends Telegram.TelegramBaseController {
 
 						connection.getIliad(usr,pwd, (html) => {
 
+							if (html == "NOLOG") {
+								$.sendMessage("🚫 Non è possibile effettuare il login\nVerifica User e Password", {parse_mode: 'Markdown'});
+								return;
+							}
+							
 							html = JSON.parse(html);
 
 							//🔲◽️ 🔳▪️
@@ -162,12 +163,12 @@ ${graficoGiorni}
 						});
 
 					} else {
-						$.sendMessage("⚠️ Nessuna Pass impostata\n\nImpostare la Pass /pass");
+						$.sendMessage("⚠️ Nessuna Pass impostata");
 						return;
 					}
 
 				} else {
-					$.sendMessage("⚠️ Nessun User impostato\nImpostare lo User /user");
+					$.sendMessage("⚠️ Nessun User impostato");
 					return;
 				}
 			});
@@ -183,6 +184,7 @@ ${graficoGiorni}
 			'cessCommand': 'cessHandler',
 			'startCommand': 'startHandler',
 			'userCommand': 'userHandler',
+			'xuserCommand': 'xuserHandler',
 			'passCommand': 'passHandler',
 			'cambiauserCommand': 'cambiauserHandler',
 			'cambiapassCommand': 'cambiapassHandler',

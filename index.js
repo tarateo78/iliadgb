@@ -15,13 +15,17 @@ const TodoController = require('./controllers/todo')
 
 const todoCtrl = new TodoController();
 
+
 tg.router.when(new Telegram.TextCommand('/test', 'testCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('/cess', 'cessCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('/start', 'startCommand'), todoCtrl)
+	.when(new Telegram.TextCommand('👦🏼 User', 'userCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('/user', 'userCommand'), todoCtrl)
+	.when(new Telegram.TextCommand('🔐 Pass', 'passCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('/pass', 'passCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('/cambiauser', 'cambiauserCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('/cambiapass', 'cambiapassCommand'), todoCtrl)
+	.when(new Telegram.TextCommand('📶 Consumo', 'consumoCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('/consumo', 'consumoCommand'), todoCtrl)
 	.otherwise(new OtherwiseController());
 
