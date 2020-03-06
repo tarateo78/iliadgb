@@ -5,18 +5,41 @@ const connection = require('../lib/connection');
 const Utente = require('../lib/utente');
 const Password = require('../lib/password');
 const Menu = require('../lib/menu');
+let request = require('request' );
 
 class TodoController extends Telegram.TelegramBaseController {
 	
-	xuserHandler($) {
-		this.userHandler($);
-		
-	}
-
 	testHandler($) {
+		let options = {
+			uri:'https://www.iliad.it/account/?logout=user',
+			jar:false,
+			headers: {
+				'set-cookie':['ACCOUNT_SESSID=0; path=/account/; HttpOnly',
+				'auth_mobile=1; expires='+ Date.now()+'; Max-Age=3600; path=/account/']
+			}
+		}
+		request.get(options, (e,r,u) => {
+			console.log(r.headers );
+		});
 
-		let menu = new Menu();
-		menu.showTest($);
+		let areariservata2 = {
+			uri: 'https://www.iliad.it/account/',
+			method: "POST",
+			followAllRedirects: true,
+			jar: true,
+			form: {
+				"login-ident": 's79587721',
+				"login-pwd": 'sBocTB-iH=S'
+			}
+		};
+
+		request.post(areariservata2, (error, response, body) => {
+			console.log(response.headers );
+			let html = body.substring(5600,5700);
+			console.log(html);
+			
+		})
+
 
 	}
 	
@@ -160,6 +183,8 @@ ${graficoGiorni}
 📆 Prossimo rinnovo: ${html.endOfferta}`;
 
 							$.sendMessage(rapporto, { parse_mode: 'Markdown' });
+
+
 						});
 
 					} else {
