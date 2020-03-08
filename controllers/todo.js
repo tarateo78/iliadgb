@@ -57,6 +57,36 @@ class TodoController extends Telegram.TelegramBaseController {
 	}
 
 
+	/* CREDITS */
+	creditsHandler($) {
+		$.sendMessage(`Develop and design by 🇮🇹 *Matteo* tiemme.cloud`, {parse_mode: `Markdown`});
+	}
+
+
+	/* info */
+	infoHandler($) {
+		$.sendMessage(
+`Benvenuto su *iliadGb* 🖖🏻
+
+🤖 Questo semplice bot consente di monitorare il consumo dati della linea iliad.
+
+⏳ La rappresentazione grafica dei consumi viene rapportata al periodo dell'offerta.
+
+⚙️ I comandi disponibili sono:
+/user /cambiauser
+/pass /cambiapass
+/consumo
+/info
+
+⛔️ Nessun dato personale inserito nella chat sarà reso disponibile al di fuori dell'applicazione.
+			
+
+/credits`, {parse_mode: `Markdown`});
+
+		
+
+	}
+
 	/* USER */
 	userHandler($) {
 		
@@ -207,9 +237,10 @@ ${graficoGiorni}
 		return {
 			'testCommand': 'testHandler',
 			'cessCommand': 'cessHandler',
+			'infoCommand': 'infoHandler',
+			'creditsCommand': 'creditsHandler',
 			'startCommand': 'startHandler',
 			'userCommand': 'userHandler',
-			'xuserCommand': 'xuserHandler',
 			'passCommand': 'passHandler',
 			'cambiauserCommand': 'cambiauserHandler',
 			'cambiapassCommand': 'cambiapassHandler',

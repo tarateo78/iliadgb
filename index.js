@@ -27,6 +27,9 @@ tg.router.when(new Telegram.TextCommand('/test', 'testCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('/cambiapass', 'cambiapassCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('📶 Consumo', 'consumoCommand'), todoCtrl)
 	.when(new Telegram.TextCommand('/consumo', 'consumoCommand'), todoCtrl)
+	.when(new Telegram.TextCommand('❔ Info', 'infoCommand'), todoCtrl)
+	.when(new Telegram.TextCommand('/info', 'infoCommand'), todoCtrl)
+	.when(new Telegram.TextCommand('/credits', 'creditsCommand'), todoCtrl)
 	.otherwise(new OtherwiseController());
 
 function exitHandler(exitCode) {
