@@ -1,0 +1,7 @@
+user - Imposta e visualizza lo 👤 Username
+pass - Imposta e visualizza la 🔑 Password
+consumo - Visualizza 📶 Report
+help - Info e comandi
+
+
+reset - Resetta 🔄 Username e Password
