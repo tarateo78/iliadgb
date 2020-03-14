@@ -1,5 +1,5 @@
 {
-  "name": "node_telegram",
+  "name": "iliadgb",
   "version": "1.0.0",
   "description": "Collezione di esempi per studiare node.js e telegram bot",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tarateo78/node_telegram.git"
+    "url": "git+https://github.com/tarateo78/iliadgb.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tarateo78/node_telegram/issues"
+    "url": "https://github.com/tarateo78/iliadgb/issues"
   },
-  "homepage": "https://github.com/tarateo78/node_telegram#readme",
+  "homepage": "https://github.com/tarateo78/iliadgb#readme",
   "dependencies": {
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
