@@ -5,3 +5,8 @@ help - Info e comandi
 
 
 reset - Resetta 🔄 Username e Password
+
+
+
+About:
+Con una semplice richiesta al bot potrai conoscere il consumo dati attuale della tua linea iliad.
